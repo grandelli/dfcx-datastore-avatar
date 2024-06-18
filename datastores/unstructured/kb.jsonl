@@ -1,0 +1,4 @@
+{ "id": "d001", "content": {"mimeType": "application/pdf", "uri": "gs://car-rental-bkt/car-rental-kb/files/chevrolet.pdf"}, "structData": {"title": "Chevrolet Tahoe", "car-type": "Luxury"} }
+{ "id": "d002", "content": {"mimeType": "application/pdf", "uri": "gs://car-rental-bkt/car-rental-kb/files/dodge.pdf"}, "structData": {"title": "Dodge Charger", "car-type": "Luxury"} }
+{ "id": "d003", "content": {"mimeType": "application/pdf", "uri": "gs://car-rental-bkt/car-rental-kb/files/mitsubishi.pdf"}, "structData": {"title": "Mitsubishi Mirage", "car-type": "Economy"} }
+{ "id": "d004", "content": {"mimeType": "application/pdf", "uri": "gs://car-rental-bkt/car-rental-kb/files/nissan.pdf"}, "structData": {"title": "Nissan Versa", "car-type": "Economy"} }

@@ -12,8 +12,9 @@
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
   <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
   <df-messenger
-  project-id="[your-project-id]"
-  agent-id="[your-agent-id]"
+  project-id="vertexai-mlops-workshops"
+  agent-id="d176f816-3821-49c1-af71-4770327f223f"
+  location="us-central1"
   language-code="en"
   intent="WELCOME"
   allow-feedback="all">
@@ -39,13 +40,51 @@
   }
 </style>
 <script>
+  // Load the df uti lpackage
   globalThis.dfInstallUtils({
-    'gcs-bucket-upload': {bucketName: '[your-bucket-name]'},
+    'gcs-bucket-upload': {bucketName: 'gs://car-rental-bkt/'},
   });
+
+  // File upload listener
   const dfMessenger = document.querySelector('df-messenger');
   dfMessenger.addEventListener('df-file-upload-completed', function (event) {
       dfMessenger.sendRequest('query','file uploaded');
   });
+
+  // search boost config listener
+  dfMessenger.addEventListener('df-messenger-loaded', function (event) {
+    const searchConfig = {
+      "boostSpecs": [
+        {
+          "dataStores": [ "projects/vertexai-mlops-workshops/locations/us/collections/default_collection/data-stores/car-rental-nochunk-kb-metadata-ds_1718254644788" ],
+          "spec": [
+            {
+              "conditionBoostSpecs": {
+                "condition": "car-type: ANY(\"Luxury\")",
+                "boost": 0.7
+              }
+            }
+          ]
+        }
+      ] 
+    }
+    dfMessenger.setQueryParameters(searchConfig);
+  });
+
+  // search personalization metadata
+  const metadata = {
+    "gps-detected-location": "NYC",
+    "preferred-vehicle-category": "luxury",
+    "devices owned": [
+      {
+        model: "Google Pixel 8",
+      },
+      {
+        model: "Google Pixel Tablet",
+      },
+    ],
+  };
+  dfMessenger.setContext(metadata);
 </script>
 </body>
 </html>
